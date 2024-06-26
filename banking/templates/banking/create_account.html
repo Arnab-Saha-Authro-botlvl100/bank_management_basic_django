@@ -1,0 +1,18 @@
+{% extends 'banking/base.html' %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Create An Account</h5>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

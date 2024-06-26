@@ -1,0 +1,14 @@
+{% extends 'banking/base.html' %}
+
+{% block title %}Edit Account{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Account</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+</div>
+{% endblock %}

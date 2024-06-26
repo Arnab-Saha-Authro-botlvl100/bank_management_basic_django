@@ -1,0 +1,75 @@
+{% extends 'banking/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <h2>Welcome, {{ user }}</h2>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Create An Acount</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a class="btn btn-primary"  href="{% url 'create_account' %}">Go</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% if error %}
+        <p>{{ error }}</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Create An Acount</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a class="btn btn-primary"  href="{% url 'create_account' %}">Go</a>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+
+        <div class="mt-3">
+              <h2 >Your Accounts</h2>
+            <div class="row">
+                {% for account in accounts %}
+                <div class="col-md-4">
+                    <div class="col-md-4">
+                        <div class="card mb-4" style="width: 18rem;">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="card-title">{{ account.account_number }}</h5>
+                                    <h6 class="card-title text-warning">{{ account.account_holder_name }}</h6> <!-- Assuming you want to show the username -->
+                                </div>
+                                <h6 class="card-subtitle mb-2 text-success fw-bold">Balance: {{ account.balance }}</h6>
+                                <p class="card-text">Account Type: {{ account.account_type }}</p>
+                                <a href="{% url 'edit_account' account.id %}" class="card-link">Edit</a>
+                                <a href="{% url 'money_transfer' account.id  %}" class="card-link">Transfer</a>  <!-- This line -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+      
+        {% comment %} <p>}</p> {% endcomment %}
+        
+        <h3>Transactions</h3>
+        <ul>
+            {% for transaction in transactions %}
+                <li>{{ transaction.timestamp }} - {{ transaction.transaction_type }} - {{ transaction.amount }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
